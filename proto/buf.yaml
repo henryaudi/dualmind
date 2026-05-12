@@ -1,0 +1,15 @@
+version: v1
+lint:
+  ignore_only:
+    PACKAGE_DIRECTORY_MATCH:
+      - envelope.proto
+      - chunk.proto
+      - transcript.proto
+      - scene.proto
+      - services.proto
+    PACKAGE_VERSION_SUFFIX:
+      - envelope.proto
+      - chunk.proto
+      - transcript.proto
+      - scene.proto
+      - services.proto

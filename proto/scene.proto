@@ -1,0 +1,36 @@
+// scene.proto — Vision inference output with revision semantics.
+//
+// Emitted by VisionWorker for each processed VideoChunk. Follows the
+// same revision model as Transcript: retro lane corrections bump rev
+// and set supersedes to the scene_id being replaced.
+
+syntax = "proto3";
+package dualmind;
+
+import "envelope.proto";
+
+message BoundingBox {
+    float x = 1;
+    float y = 2;
+    float w = 3;
+    float h = 4;
+}
+
+message SceneObject {
+    string      object_id  = 1;
+    string      label      = 2;
+    float       confidence = 3;
+    BoundingBox bbox       = 4;
+}
+
+message Scene {
+    string               scene_id        = 1;
+    string               session         = 2;
+    string               source_chunk_id = 3;
+    Lane                 lane            = 4;
+    int32                rev             = 5;
+    string               summary         = 6;
+    repeated SceneObject objects         = 7;
+    bool                 is_final        = 8;
+    string               supersedes      = 9;
+}

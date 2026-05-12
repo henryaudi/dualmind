@@ -1,0 +1,84 @@
+// services.proto — gRPC service definitions for inter-node communication.
+//
+// All services are implemented inside the C runtime. Python never calls
+// these directly; the C runtime routes envelopes across nodes
+// transparently via the middleware router.
+
+syntax = "proto3";
+package dualmind;
+
+import "chunk.proto";
+import "transcript.proto";
+import "scene.proto";
+
+enum NodeRole {
+    NODE_ROLE_UNSPECIFIED = 0;
+    NODE_ROLE_MAC         = 1;
+    NODE_ROLE_LINUX       = 2;
+    NODE_ROLE_JETSON      = 3;
+}
+
+enum Capability {
+    CAPABILITY_UNSPECIFIED = 0;
+    CAPABILITY_STT         = 1;
+    CAPABILITY_VISION      = 2;
+    CAPABILITY_LLM         = 3;
+}
+
+message NodeInfo {
+    string              node_id      = 1;
+    NodeRole            role         = 2;
+    string              address      = 3;
+    repeated Capability capabilities = 4;
+}
+
+message Ping {
+    string node_id = 1;
+    double ts      = 2;
+}
+message Pong {
+    string node_id = 1;
+    double ts      = 2;
+}
+
+message Directive {
+    string type    = 1;
+    bytes  payload = 2;
+}
+
+// ChunkService wrappers
+message StreamAudioRequest {
+    AudioChunk chunk    = 1;
+    string     trace_id = 2;
+    bool       flush    = 3;
+}
+message StreamAudioResponse {
+    Transcript result = 1;
+    string     error  = 2;
+}
+message StreamVideoRequest {
+    VideoChunk chunk    = 1;
+    string     trace_id = 2;
+    bool       flush    = 3;
+}
+message StreamVideoResponse {
+    Scene  result = 1;
+    string error  = 2;
+}
+
+// OrchestratorService wrappers
+message RegisterNodeRequest { NodeInfo info = 1; }
+message HealthCheckRequest { Ping ping = 1; }
+message HealthCheckResponse { Pong pong = 1; }
+
+service ChunkService {
+    rpc StreamAudio(stream StreamAudioRequest)
+        returns (stream StreamAudioResponse);
+    rpc StreamVideo(stream StreamVideoRequest)
+        returns (stream StreamVideoResponse);
+}
+
+service OrchestratorService {
+    rpc RegisterNode(RegisterNodeRequest) returns (stream Directive);
+    rpc HealthCheck(HealthCheckRequest) returns (HealthCheckResponse);
+}

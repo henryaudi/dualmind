@@ -1,0 +1,30 @@
+// transcript.proto — Speech-to-text output with revision semantics.
+//
+// Emitted by STTWorker on all three lanes. When the retro lane corrects
+// an earlier result, rev is incremented and supersedes carries the
+// transcript_id being replaced.
+
+syntax = "proto3";
+package dualmind;
+
+import "envelope.proto";
+
+message Segment {
+    double t_start_ms = 1;
+    double t_end_ms   = 2;
+    string text       = 3;
+    float  confidence = 4;
+}
+
+message Transcript {
+    string           transcript_id   = 1;
+    string           session         = 2;
+    string           source_chunk_id = 3;
+    Lane             lane            = 4;
+    int32            rev             = 5;
+    string           text            = 6;
+    float            confidence      = 7;
+    bool             is_final        = 8;
+    repeated Segment segments        = 9;
+    string           supersedes      = 10;
+}

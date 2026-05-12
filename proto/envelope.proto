@@ -1,0 +1,34 @@
+// envelope.proto — Core event envelope.
+//
+// Every message flowing through the DualMind bus, whether local or
+// cross-node, is wrapped in an Envelope. The payload field carries a
+// serialized sub-message (AudioChunk, Transcript, Scene, etc.).
+
+syntax = "proto3";
+package dualmind;
+
+enum Modality {
+    MODALITY_UNSPECIFIED = 0;
+    MODALITY_AUDIO       = 1;
+    MODALITY_VIDEO       = 2;
+    MODALITY_TEXT        = 3;
+}
+
+enum Lane {
+    LANE_UNSPECIFIED = 0;
+    LANE_FAST        = 1;
+    LANE_RETRO       = 2;
+    LANE_FINAL       = 3;
+}
+
+message Envelope {
+    string   id       = 1;
+    string   type     = 2;
+    Modality modality = 3;
+    Lane     lane     = 4;
+    double   ts       = 5;
+    string   session  = 6;
+    int32    seq      = 7;
+    int32    rev      = 8;
+    bytes    payload  = 9;
+}

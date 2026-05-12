@@ -1,0 +1,22 @@
+# Claude
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.venv/
+dist/
+build/
+
+# Logs
+runtime_logs/*.ndjson
+
+# C build
+cmake-build-*/
+*.o
+*.a
+
+# macOS
+.DS_Store

@@ -1,0 +1,33 @@
+// chunk.proto — Raw media chunk messages.
+//
+// Produced by AudioIngress and VideoIngress after the C runtime chunker
+// applies the overlapping window. Both message types carry timing metadata
+// so downstream workers can reconstruct the original timeline.
+
+syntax = "proto3";
+package dualmind;
+
+message AudioChunk {
+    string chunk_id    = 1;
+    string session     = 2;
+    string stream_id   = 3;
+    int32  seq         = 4;
+    double t_start_ms  = 5;
+    double t_end_ms    = 6;
+    bytes  samples     = 7;
+    int32  sample_rate = 8;
+    int32  channels    = 9;
+}
+
+message VideoChunk {
+    string         chunk_id   = 1;
+    string         session    = 2;
+    string         stream_id  = 3;
+    int32          seq        = 4;
+    double         t_start_ms = 5;
+    double         t_end_ms   = 6;
+    repeated bytes frames     = 7;
+    int32          width      = 8;
+    int32          height     = 9;
+    float          fps        = 10;
+}
