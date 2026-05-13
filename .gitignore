@@ -9,6 +9,7 @@ __pycache__/
 *.py[cod]
 *.so
 *.egg-info/
+*.egg-link
 .venv/
 dist/
 build/
