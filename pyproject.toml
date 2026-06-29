@@ -1,0 +1,33 @@
+[project]
+name = "dualmind"
+version = "0.1.0"
+description = "Multimodal reality-to-computer interface: C-accelerated ingest + Python multi-agent runtime."
+requires-python = ">=3.13"
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+src = ["agents", "sim", "apps"]
+extend-exclude = [
+    "**/*_pb2.py",        # generated protobuf
+    "**/*_pb2_grpc.py",   # generated gRPC stubs
+    ".venv",
+]
+
+[tool.ruff.lint]
+select = [
+    "E", "F",     # pycodestyle errors, pyflakes
+    "I",          # isort (import ordering)
+    "UP",         # pyupgrade (modern syntax)
+    "B",          # flake8-bugbear (likely bugs)
+    "SIM",        # flake8-simplify
+    "C4",         # flake8-comprehensions
+    "RUF",        # ruff-specific rules
+]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["agents", "sim", "apps"]
+
+[tool.ruff.format]
+docstring-code-format = true    # format code blocks inside docstrings
