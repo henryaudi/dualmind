@@ -1,0 +1,33 @@
+# Claude Code local state
+.claude/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+
+# C / C++ build
+build/
+*.o
+*.a
+*.so
+*.dylib
+
+# Generated protobuf / gRPC stubs
+*_pb2.py
+*_pb2_grpc.py
+*.pb.cc
+*.pb.h
+*.grpc.pb.cc
+*.grpc.pb.h
+
+# Runtime artifacts
+runtime_logs/
+*.ndjson
