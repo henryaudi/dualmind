@@ -1,7 +1,8 @@
 """Stable identifier generator for runtime events and traces
 
-IDs are short, sortable, and URL-safe. We use a time-ordered prefix so that NDJSON logs and replay traces sort roughly
-chronologically by id alone, which is convenint when eyeballing logs.
+IDs are short, sortable, and URL-safe. We use a time-ordered prefix so that NDJSON logs
+and replay traces sort roughly chronologically by id alone, which is convenint when
+eyeballing logs.
 """
 
 from __future__ import annotations
