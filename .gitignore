@@ -31,3 +31,6 @@ build/
 # Runtime artifacts
 runtime_logs/
 *.ndjson
+
+# Auto-generated files
+agents/dualmind/
