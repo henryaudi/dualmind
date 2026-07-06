@@ -1,0 +1,21 @@
+{
+  // Semantic tokens power type coloring in .proto (via the Buf LSP)
+  "editor.semanticHighlighting.enabled": true,
+
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
+    }
+  },
+
+  "[proto3]": {
+    "editor.defaultFormatter": "bufbuild.vscode-buf",
+    "editor.formatOnSave": true
+  },
+
+  // Keep clang-format for C/C++ only; don't let it claim .proto
+  "clang-format.language.proto.enable": false
+}
