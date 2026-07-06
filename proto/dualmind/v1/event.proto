@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package dualmind.v1;
+
+import "google/protobuf/struct.proto";
+
+message Event {
+  string event_id = 1;
+  string event_type = 2;
+  string session_id = 3;
+  string stream_id = 4;
+  Modality modality = 5;
+  string producer = 6;
+  string created_at = 7;
+  string trace_id = 8;
+  Lane lane = 9;
+  uint32 revision = 10;
+  repeated string parent_event_ids = 11;
+  string node_id = 12;
+  optional string correlation_id = 13;
+  string payload_schema = 14;
+  google.protobuf.Struct payload = 15;
+}
+
+enum Modality {
+  MODALITY_UNSPECIFIED = 0;
+  MODALITY_AUDIO = 1;
+  MODALITY_VIDEO = 2;
+  MODALITY_IMAGE = 3;
+  MODALITY_TEXT = 4;
+  MODALITY_FILE = 5;
+  MODALITY_SENSOR = 6;
+  MODALITY_CONTROL = 7;
+  MODALITY_STATE = 8;
+  MODALITY_MIXED = 9;
+}
+
+enum Lane {
+  LANE_UNSPECIFIED = 0;
+  LANE_FAST = 1;
+  LANE_RETRO = 2;
+  LANE_FINAL = 3;
+}
